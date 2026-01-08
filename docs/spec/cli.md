@@ -145,6 +145,10 @@ contract check --rules branch_protection
 | `--strict` | `-s` | `false` | warning も終了コード 1 にする |
 | `--quiet` | `-q` | `false` | エラー/警告時のみ出力 |
 
+branch_protection の検証は GitHub API を利用するため、`GITHUB_TOKEN`（または `.contract.toml` の `github.token`）が必要です。
+`--remote` を省略した場合は `GITHUB_REPOSITORY` か `git remote origin` からリポジトリを推測します。
+`required_files` は `--remote` 未対応です。
+
 ### 5.3 出力例
 
 ```
@@ -213,7 +217,7 @@ $ contract check --format json
 
 | 変数 | 説明 |
 |------|------|
-| `GITHUB_TOKEN` | GitHub API アクセス用トークン（`--remote` 使用時に必須） |
+| `GITHUB_TOKEN` | GitHub API アクセス用トークン（branch_protection の check/diff に必須） |
 | `CONTRACT_STRICT` | `true` の場合 `--strict` と同等 |
 
 ---
@@ -243,6 +247,10 @@ contract diff --rules branch_protection
 | `--remote <REPO>` | `-r` | - | リモートリポジトリ |
 | `--rules <RULES>` | | すべて | 差分を取るルール |
 | `--format <FORMAT>` | `-f` | `human` | 出力形式（`human` / `json` / `yaml`） |
+
+branch_protection の差分取得は GitHub API を利用するため、`GITHUB_TOKEN`（または `.contract.toml` の `github.token`）が必要です。
+`--remote` を省略した場合は `GITHUB_REPOSITORY` か `git remote origin` からリポジトリを推測します。
+`required_files` は `--remote` 未対応です。
 
 ### 6.3 出力例
 
@@ -402,6 +410,8 @@ rules = ["required_files", "branch_protection"]
 # GITHUB_TOKEN 環境変数の代わりに設定可能
 # token = "ghp_xxxx"  # 非推奨: 環境変数を使用すること
 ```
+
+branch_protection の check/diff では `github.token` を利用できます。
 
 ---
 
