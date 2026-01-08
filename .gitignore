@@ -9,4 +9,9 @@
 *.swo
 .idea/
 
+*.rustup
 /*.tar.gz
+/.rustup
+/.cargo/registry
+/.cargo/.global-cache
+/.cargo/.package-cache*
