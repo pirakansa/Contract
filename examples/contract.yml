@@ -1,10 +1,10 @@
 # Repo Contract - Core Configuration Example
-# Schema: https://pirakansa.github.io/Contract/schemas/v1.json
+# Schema: https://pirakansa.github.io/RepoContract/schemas/v1.json
 #
 # This is the main contract file that defines repository governance rules.
 # Place this file at the repository root as `contract.yml`.
 
-$schema: "https://pirakansa.github.io/Contract/schemas/v1.json"
+$schema: "https://pirakansa.github.io/RepoContract/schemas/v1.json"
 version: "1.0"
 
 # Language profile to load (optional)

@@ -1,11 +1,11 @@
 # Repo Contract - Rust Language Profile
-# Schema: https://pirakansa.github.io/Contract/schemas/v1.json
+# Schema: https://pirakansa.github.io/RepoContract/schemas/v1.json
 #
 # This profile defines Rust-specific requirements.
 # It is automatically loaded when `profile: "rust"` is set in contract.yml.
 # Place this file at the repository root as `contract.rust.yml`.
 
-$schema: "https://pirakansa.github.io/Contract/schemas/v1.json"
+$schema: "https://pirakansa.github.io/RepoContract/schemas/v1.json"
 version: "1.0"
 language: "rust"
 

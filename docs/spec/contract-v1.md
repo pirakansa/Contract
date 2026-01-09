@@ -41,7 +41,7 @@ Repo Contract は以下を実現するための設定ファイル仕様です：
 
 ```yaml
 # contract.yml
-$schema: "https://pirakansa.github.io/Contract/schemas/v1.json"
+$schema: "https://pirakansa.github.io/RepoContract/schemas/v1.json"
 version: "1.0"
 
 profile: "<language>"          # オプション: 言語Profile指定
@@ -370,13 +370,13 @@ JSON Schema に基づく検証：
 JSON Schema は以下のURLで公開されます：
 
 ```
-https://pirakansa.github.io/Contract/schemas/v1.json
+https://pirakansa.github.io/RepoContract/schemas/v1.json
 ```
 
 YAML/JSON ファイルで `$schema` を指定することで、エディタ補完・検証が有効になります：
 
 ```yaml
-$schema: "https://pirakansa.github.io/Contract/schemas/v1.json"
+$schema: "https://pirakansa.github.io/RepoContract/schemas/v1.json"
 version: "1.0"
 # ...
 ```
@@ -395,8 +395,8 @@ version: "1.0"
 
 スキーマURLにはバージョンを含める：
 
-- `https://pirakansa.github.io/Contract/schemas/v1.json` - v1.x系
-- `https://pirakansa.github.io/Contract/schemas/v2.json` - v2.x系（将来）
+- `https://pirakansa.github.io/RepoContract/schemas/v1.json` - v1.x系
+- `https://pirakansa.github.io/RepoContract/schemas/v2.json` - v2.x系（将来）
 
 ---
 

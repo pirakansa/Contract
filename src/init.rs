@@ -53,7 +53,7 @@ pub fn init_contract_files(root: &Path, options: InitOptions) -> ContractResult<
     };
 
     let template = ContractTemplate {
-        schema: Some("https://pirakansa.github.io/Contract/schemas/v1.json".to_string()),
+        schema: Some("https://pirakansa.github.io/RepoContract/schemas/v1.json".to_string()),
         version: "1.0".to_string(),
         profile: options.profile.clone(),
         required_files: base_required_files,
@@ -65,7 +65,7 @@ pub fn init_contract_files(root: &Path, options: InitOptions) -> ContractResult<
     if let Some(profile) = options.profile {
         let profile_path = profile_path_for(&options.output_path, &profile);
         let profile_template = ProfileTemplate {
-            schema: Some("https://pirakansa.github.io/Contract/schemas/v1.json".to_string()),
+            schema: Some("https://pirakansa.github.io/RepoContract/schemas/v1.json".to_string()),
             version: "1.0".to_string(),
             language: profile.clone(),
             required_files: profile_required_files(&profile),

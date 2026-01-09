@@ -1,4 +1,4 @@
-use contract::{check_required_files, RequiredFile, Severity};
+use repo_contract::{check_required_files, RequiredFile, Severity};
 use std::fs;
 use std::path::Path;
 

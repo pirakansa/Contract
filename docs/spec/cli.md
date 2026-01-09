@@ -1,10 +1,10 @@
 # Repo Contract CLI Specification
 
-> `contract` コマンドラインツールの仕様定義
+> `repo-contract` コマンドラインツールの仕様定義
 
 ## 1. 概要
 
-`contract` CLI は Repo Contract の検証・差分検出・適用を行うツールです。
+`repo-contract` CLI は Repo Contract の検証・差分検出・適用を行うツールです。
 
 ### 1.1 設計原則
 
@@ -23,15 +23,15 @@
 
 ```bash
 # GitHub Releases からダウンロード
-curl -L https://github.com/pirakansa/Contract/releases/latest/download/contract-$(uname -s)-$(uname -m) -o contract
-chmod +x contract
-sudo mv contract /usr/local/bin/
+curl -L https://github.com/pirakansa/RepoContract/releases/latest/download/repo-contract-$(uname -s)-$(uname -m) -o repo-contract
+chmod +x repo-contract
+sudo mv repo-contract /usr/local/bin/
 ```
 
 ### 2.2 Cargo インストール
 
 ```bash
-cargo install contract
+cargo install repo-contract
 ```
 
 ### 2.3 GitHub Actions
@@ -48,16 +48,16 @@ cargo install contract
 
 | コマンド | 説明 |
 |----------|------|
-| `contract validate` | Contract ファイルの構文検証 |
-| `contract check` | リポジトリ状態との照合 |
-| `contract diff` | 期待値と現状の差分表示 |
-| `contract apply` | Contract に基づく設定適用（Phase 2） |
-| `contract init` | Contract ファイルの雛形生成 |
-| `contract schema` | JSON Schema の出力 |
+| `repo-contract validate` | Contract ファイルの構文検証 |
+| `repo-contract check` | リポジトリ状態との照合 |
+| `repo-contract diff` | 期待値と現状の差分表示 |
+| `repo-contract apply` | Contract に基づく設定適用（Phase 2） |
+| `repo-contract init` | Contract ファイルの雛形生成 |
+| `repo-contract schema` | JSON Schema の出力 |
 
 ---
 
-## 4. contract validate
+## 4. repo-contract validate
 
 Contract ファイルの構文を JSON Schema に基づいて検証します。
 
@@ -65,14 +65,14 @@ Contract ファイルの構文を JSON Schema に基づいて検証します。
 
 ```bash
 # デフォルト: contract.yml を検証
-contract validate
+repo-contract validate
 
 # 指定ファイルを検証
-contract validate contract.yml
-contract validate path/to/contract.yml
+repo-contract validate contract.yml
+repo-contract validate path/to/contract.yml
 
 # Profile も含めて検証
-contract validate --with-profile
+repo-contract validate --with-profile
 ```
 
 ### 4.2 オプション
@@ -87,7 +87,7 @@ contract validate --with-profile
 ### 4.3 出力例
 
 ```
-$ contract validate
+$ repo-contract validate
 
 ✓ contract.yml: Valid
 ✓ contract.rust.yml: Valid (profile)
@@ -96,7 +96,7 @@ Validated 2 files, 0 errors
 ```
 
 ```
-$ contract validate --format json
+$ repo-contract validate --format json
 {
   "valid": true,
   "files": [
@@ -116,7 +116,7 @@ $ contract validate --format json
 
 ---
 
-## 5. contract check
+## 5. repo-contract check
 
 リポジトリの実際の状態が Contract に準拠しているか検証します。
 
@@ -124,14 +124,14 @@ $ contract validate --format json
 
 ```bash
 # ローカルリポジトリを検証
-contract check
+repo-contract check
 
 # リモートリポジトリを検証（GitHub API使用）
-contract check --remote owner/repo
+repo-contract check --remote owner/repo
 
 # 特定ルールのみ検証
-contract check --rules required_files
-contract check --rules branch_protection
+repo-contract check --rules required_files
+repo-contract check --rules branch_protection
 ```
 
 ### 5.2 オプション
@@ -152,7 +152,7 @@ branch_protection の検証は GitHub API を利用するため、`GITHUB_TOKEN`
 ### 5.3 出力例
 
 ```
-$ contract check
+$ repo-contract check
 
 Checking repository against contract.yml...
 
@@ -172,7 +172,7 @@ Summary: 1 error, 1 warning, 1 info
 ```
 
 ```
-$ contract check --format json
+$ repo-contract check --format json
 {
   "valid": false,
   "results": [
@@ -222,7 +222,7 @@ $ contract check --format json
 
 ---
 
-## 6. contract diff
+## 6. repo-contract diff
 
 Contract の期待値と現状の差分を表示します。
 
@@ -230,13 +230,13 @@ Contract の期待値と現状の差分を表示します。
 
 ```bash
 # ローカルリポジトリとの差分
-contract diff
+repo-contract diff
 
 # リモートリポジトリとの差分
-contract diff --remote owner/repo
+repo-contract diff --remote owner/repo
 
 # 特定ルールのみ
-contract diff --rules branch_protection
+repo-contract diff --rules branch_protection
 ```
 
 ### 6.2 オプション
@@ -255,7 +255,7 @@ branch_protection の差分取得は GitHub API を利用するため、`GITHUB_
 ### 6.3 出力例
 
 ```
-$ contract diff
+$ repo-contract diff
 
 Branch Protection [main]
   required_status_checks.checks:
@@ -268,7 +268,7 @@ Required Files:
 ```
 
 ```
-$ contract diff --format json
+$ repo-contract diff --format json
 {
   "diffs": [
     {
@@ -301,7 +301,7 @@ $ contract diff --format json
 
 ---
 
-## 7. contract init
+## 7. repo-contract init
 
 Contract ファイルの雛形を生成します。
 
@@ -309,14 +309,14 @@ Contract ファイルの雛形を生成します。
 
 ```bash
 # 基本的な contract.yml を生成
-contract init
+repo-contract init
 
 # 言語 Profile も生成
-contract init --profile rust
+repo-contract init --profile rust
 
 # 既存設定から逆生成（リポジトリの現状を Contract 化）
-contract init --from-repo
-contract init --from-repo --remote owner/repo
+repo-contract init --from-repo
+repo-contract init --from-repo --remote owner/repo
 ```
 
 ### 7.2 オプション
@@ -332,13 +332,13 @@ contract init --from-repo --remote owner/repo
 ### 7.3 出力例
 
 ```
-$ contract init --profile rust
+$ repo-contract init --profile rust
 
 Created: contract.yml
 Created: contract.rust.yml
 
 Edit these files to customize your repository contract.
-Run `contract validate` to verify the configuration.
+Run `repo-contract validate` to verify the configuration.
 ```
 
 ### 7.4 終了コード
@@ -351,7 +351,7 @@ Run `contract validate` to verify the configuration.
 
 ---
 
-## 8. contract schema
+## 8. repo-contract schema
 
 JSON Schema を標準出力に出力します。
 
@@ -359,10 +359,10 @@ JSON Schema を標準出力に出力します。
 
 ```bash
 # JSON Schema を出力
-contract schema
+repo-contract schema
 
 # ファイルに保存
-contract schema > contract.schema.json
+repo-contract schema > contract.schema.json
 ```
 
 ### 8.2 終了コード
@@ -432,17 +432,17 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       
-      - name: Install contract CLI
+      - name: Install repo-contract CLI
         run: |
-          curl -L https://github.com/pirakansa/Contract/releases/latest/download/contract-linux-amd64 -o contract
-          chmod +x contract
-          sudo mv contract /usr/local/bin/
+          curl -L https://github.com/pirakansa/RepoContract/releases/latest/download/repo-contract-linux-amd64 -o repo-contract
+          chmod +x repo-contract
+          sudo mv repo-contract /usr/local/bin/
       
       - name: Validate contract
-        run: contract validate
+        run: repo-contract validate
       
       - name: Check repository
-        run: contract check --format json > result.json
+        run: repo-contract check --format json > result.json
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
@@ -458,7 +458,7 @@ jobs:
 ```yaml
 # .pre-commit-config.yaml
 repos:
-  - repo: https://github.com/pirakansa/Contract
+  - repo: https://github.com/pirakansa/RepoContract
     rev: v1.0.0
     hooks:
       - id: contract-validate

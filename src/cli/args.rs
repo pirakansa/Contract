@@ -2,7 +2,7 @@ use clap::{ArgAction, Parser, Subcommand, ValueEnum};
 use std::path::PathBuf;
 
 #[derive(Parser)]
-#[command(name = "contract", version, about = "Repo Contract CLI")]
+#[command(name = "repo-contract", version, about = "Repo Contract CLI")]
 pub(crate) struct Cli {
     #[command(subcommand)]
     pub(crate) command: Commands,

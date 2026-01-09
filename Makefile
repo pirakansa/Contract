@@ -1,6 +1,6 @@
 # Makefile
 
-PROJECT_NAME        := Contract
+PROJECT_NAME        := repo-contract
 LINUX_AMD64         := linux-amd64
 LINUX_ARM           := linux-arm
 LINUX_ARM64         := linux-arm64

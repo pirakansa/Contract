@@ -1,6 +1,6 @@
-use contract::{BranchProtectionReport, DiffEntry, DiffReport, RequiredFilesReport, Summary};
+use repo_contract::{BranchProtectionReport, DiffEntry, DiffReport, RequiredFilesReport, Summary};
 
-pub(super) fn print_validate_human(reports: &[contract::ValidationReport]) {
+pub(super) fn print_validate_human(reports: &[repo_contract::ValidationReport]) {
     let mut errors = 0;
     for report in reports {
         if report.valid {
@@ -16,7 +16,9 @@ pub(super) fn print_validate_human(reports: &[contract::ValidationReport]) {
     println!("Validated {} files, {} errors", reports.len(), errors);
 }
 
-pub(super) fn print_validate_json(reports: &[contract::ValidationReport]) -> anyhow::Result<()> {
+pub(super) fn print_validate_json(
+    reports: &[repo_contract::ValidationReport],
+) -> anyhow::Result<()> {
     let output = serde_json::json!({
         "valid": reports.iter().all(|report| report.valid),
         "files": reports
@@ -45,9 +47,9 @@ pub(super) fn print_check_human(
                 );
             } else {
                 let icon = match detail.severity {
-                    contract::Severity::Error => "✗",
-                    contract::Severity::Warning => "⚠",
-                    contract::Severity::Info => "ℹ",
+                    repo_contract::Severity::Error => "✗",
+                    repo_contract::Severity::Warning => "⚠",
+                    repo_contract::Severity::Info => "ℹ",
                 };
                 println!("  {icon} {}: {}", detail.path, detail.message);
             }
@@ -61,9 +63,9 @@ pub(super) fn print_check_human(
                 ("✓", "Found")
             } else {
                 match check.severity {
-                    contract::Severity::Error => ("✗", "Not found (error)"),
-                    contract::Severity::Warning => ("⚠", "Not found (warning)"),
-                    contract::Severity::Info => ("ℹ", "Not found (info)"),
+                    repo_contract::Severity::Error => ("✗", "Not found (error)"),
+                    repo_contract::Severity::Warning => ("⚠", "Not found (warning)"),
+                    repo_contract::Severity::Info => ("ℹ", "Not found (info)"),
                 }
             };
             println!("  {icon} {}: {message}", check.path);
