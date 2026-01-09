@@ -31,7 +31,7 @@ sudo mv repo-contract /usr/local/bin/
 ### 2.2 Cargo インストール
 
 ```bash
-cargo install contract
+cargo install repo-contract
 ```
 
 ### 2.3 GitHub Actions

@@ -11,7 +11,7 @@ use super::util::{
     resolve_config_path, resolve_strict, summarize_required_files,
 };
 use anyhow::Context;
-use contract::{
+use repo_contract::{
     check_required_files, diff_branch_protection, diff_required_files, init_contract_files,
     load_config_file, load_contract, resolve_cli_config, schema_json, validate_contract_file,
     CliConfig, ContractError, LoadOptions,
@@ -127,7 +127,7 @@ fn run_check(args: CheckArgs, cli_config: &CliConfig) -> anyhow::Result<i32> {
     };
 
     let mut summary = summarize_required_files(&report);
-    let branch_summary = contract::summarize_branch_protection(&branch_reports);
+    let branch_summary = repo_contract::summarize_branch_protection(&branch_reports);
     add_summary(&mut summary, &branch_summary);
     let has_error = summary.error > 0 || (strict && summary.warning > 0);
     if args.quiet && summary.error == 0 && summary.warning == 0 {
@@ -187,7 +187,7 @@ fn run_diff(args: DiffArgs, cli_config: &CliConfig) -> anyhow::Result<i32> {
         diffs.extend(diff_branch_protection(&branch_reports));
     }
 
-    let report = contract::DiffReport { diffs, summary };
+    let report = repo_contract::DiffReport { diffs, summary };
 
     let has_diff = !report.diffs.is_empty();
     match format {
@@ -207,7 +207,7 @@ fn run_init(args: InitArgs) -> anyhow::Result<i32> {
     let root = std::env::current_dir()?;
     match init_contract_files(
         &root,
-        contract::InitOptions {
+        repo_contract::InitOptions {
             output_path: args.output,
             profile: args.profile,
             from_repo: args.from_repo,

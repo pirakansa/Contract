@@ -1,5 +1,5 @@
 use anyhow::{anyhow, Context};
-use contract::{
+use repo_contract::{
     check_branch_protection, BranchProtectionReport, CliConfig, Contract, GithubClient,
     RequiredFilesReport, Summary,
 };
